@@ -279,7 +279,19 @@
           { label: "50～70万円", value: "50to70" },
           { label: "70万円以上", value: "over70" }
         ]
-      }
+            },
+            {
+        title: "誰と旅行する予定ですか？",
+        description:
+          "旅行スタイルや移動のしやすさの判定に使用します。",
+        key: "companion",
+
+        options: [
+          { label: "一人旅", value: "solo" },
+          { label: "友人と", value: "friends" },
+          { label: "パートナー・夫婦で", value: "couple" },
+          { label: "家族と", value: "family" }
+        ]
     ];
 
 
@@ -431,7 +443,7 @@
         } else {
 
           alert(
-            "Q4まで正常に回答できました！"
+            "Q5まで正常に回答できました！"
           );
 
         }
