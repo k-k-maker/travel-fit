@@ -247,8 +247,39 @@
           { label: "11月", value: "11" },
           { label: "12月", value: "12" }
         ]
-      }
+            },
+      {
+        title: "旅行は何日間を予定していますか？",
+        description:
+          "移動時間を考慮して、無理なく楽しめる旅行先を判定します。",
+        key: "days",
 
+        options: [
+          { label: "3～4日", value: "4" },
+          { label: "5～6日", value: "6" },
+          { label: "7～8日", value: "8" },
+          { label: "9～10日", value: "10" },
+          { label: "11～14日", value: "14" },
+          { label: "15日以上", value: "15plus" }
+        ]
+      },
+
+      {
+        title: "旅行全体の予算はいくらですか？",
+        description:
+          "航空券・ホテル・現地交通・食事などを含めた1人分の予算で選んでください。",
+        key: "budget",
+
+        options: [
+          { label: "15万円未満", value: "under15" },
+          { label: "15～20万円", value: "15to20" },
+          { label: "20～30万円", value: "20to30" },
+          { label: "30～40万円", value: "30to40" },
+          { label: "40～50万円", value: "40to50" },
+          { label: "50～70万円", value: "50to70" },
+          { label: "70万円以上", value: "over70" }
+        ]
+      }
     ];
 
 
@@ -400,7 +431,7 @@
         } else {
 
           alert(
-            "Q2まで正常に回答できました！"
+            "Q4まで正常に回答できました！"
           );
 
         }
