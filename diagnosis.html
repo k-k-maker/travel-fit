@@ -412,6 +412,25 @@
       { label: "多少大変でも珍しい場所へ行きたい", value: "adventure" },
       { label: "かなり冒険的な旅でも大丈夫", value: "highAdventure" }
     ]
+      },
+        {
+    title: "旅行先を選ぶとき、避けたい条件はありますか？",
+    description:
+      "あなたが苦手な条件を避けて、より旅行しやすい行き先を判定する参考にします。",
+    key: "avoid",
+
+    options: [
+      { label: "寒い場所", value: "cold" },
+      { label: "暑い場所", value: "hot" },
+      { label: "長時間のフライト", value: "longFlight" },
+      { label: "乗り継ぎが多い", value: "transfers" },
+      { label: "夜行列車・夜行バス", value: "nightTransport" },
+      { label: "治安面の不安が大きい", value: "safety" },
+      { label: "英語でのやり取りが多い", value: "english" },
+      { label: "物価が高い", value: "expensive" },
+      { label: "観光客が多く混雑している", value: "crowds" },
+      { label: "特になし", value: "none" }
+    ]
   }
     ];
 
@@ -564,7 +583,7 @@
         } else {
 
           alert(
-            "Q14まで正常に回答できました！"
+            "Q15まで正常に回答できました！"
           );
 
         }
