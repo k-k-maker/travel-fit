@@ -292,7 +292,21 @@
           { label: "パートナー・夫婦で", value: "couple" },
           { label: "家族と", value: "family" }
         ]
-                }
+                },
+            {
+        title: "海外旅行の経験はどのくらいありますか？",
+        description:
+          "旅の難易度や、個人旅行のしやすさを判定する参考にします。",
+        key: "experience",
+
+        options: [
+          { label: "初めて", value: "first" },
+          { label: "1～2回", value: "beginner" },
+          { label: "3～5回", value: "intermediate" },
+          { label: "6～10回", value: "experienced" },
+          { label: "11回以上", value: "veryExperienced" }
+        ]
+      }
     ];
 
 
@@ -444,7 +458,7 @@
         } else {
 
           alert(
-            "Q5まで正常に回答できました！"
+            "Q6まで正常に回答できました！"
           );
 
         }
