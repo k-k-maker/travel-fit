@@ -49,9 +49,9 @@
     }
 
     .progress-bar {
-      width: 6.67%;
       height: 100%;
       background: #16877d;
+      transition: width 0.3s ease;
     }
 
     h1 {
@@ -114,6 +114,17 @@
       box-shadow: 0 8px 20px rgba(22, 135, 125, 0.20);
     }
 
+    .back-button {
+      display: block;
+      width: 100%;
+      margin-top: 18px;
+      border: 0;
+      background: transparent;
+      color: #78909c;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
     .back-home {
       display: block;
       text-align: center;
@@ -143,46 +154,37 @@
 
   <main class="container">
 
-    <div class="progress-text">
+    <div class="progress-text" id="progressText">
       Q1 / 15
     </div>
 
     <div class="progress">
-      <div class="progress-bar"></div>
+      <div
+        class="progress-bar"
+        id="progressBar"
+        style="width: 6.67%;">
+      </div>
     </div>
 
-    <h1>どこから出発しますか？</h1>
+    <h1 id="questionTitle">
+      どこから出発しますか？
+    </h1>
 
-    <p class="subtext">
+    <p class="subtext" id="questionDescription">
       航空券の価格や移動時間の目安に使用します。
     </p>
 
-    <div class="options">
-
-      <button class="option" data-value="tokyo">
-        東京（羽田・成田）
-      </button>
-
-      <button class="option" data-value="osaka">
-        大阪（関西）
-      </button>
-
-      <button class="option" data-value="nagoya">
-        名古屋（中部）
-      </button>
-
-      <button class="option" data-value="fukuoka">
-        福岡
-      </button>
-
-      <button class="option" data-value="other">
-        その他
-      </button>
-
-    </div>
+    <div class="options" id="options"></div>
 
     <button class="next-button" id="nextButton">
       次へ →
+    </button>
+
+    <button
+      class="back-button"
+      id="backButton"
+      style="display:none;">
+      ← 前の質問へ
     </button>
 
     <a class="back-home" href="index.html">
@@ -192,39 +194,244 @@
   </main>
 
   <script>
-    const options = document.querySelectorAll(".option");
-    const nextButton = document.getElementById("nextButton");
 
-    let selectedDeparture = "";
+    const questions = [
 
-    options.forEach(option => {
-      option.addEventListener("click", () => {
+      {
+        title: "どこから出発しますか？",
+        description:
+          "航空券の価格や移動時間の目安に使用します。",
+        key: "departure",
 
-        options.forEach(item => {
-          item.classList.remove("selected");
-        });
+        options: [
+          {
+            label: "東京（羽田・成田）",
+            value: "tokyo"
+          },
+          {
+            label: "大阪（関西）",
+            value: "osaka"
+          },
+          {
+            label: "名古屋（中部）",
+            value: "nagoya"
+          },
+          {
+            label: "福岡",
+            value: "fukuoka"
+          },
+          {
+            label: "その他",
+            value: "other"
+          }
+        ]
+      },
 
-        option.classList.add("selected");
-        selectedDeparture = option.dataset.value;
+      {
+        title: "いつ旅行する予定ですか？",
+        description:
+          "気候や旅行費用、ベストシーズンの判定に使用します。",
+        key: "month",
 
-        nextButton.classList.add("active");
-      });
-    });
-
-    nextButton.addEventListener("click", () => {
-      if (!selectedDeparture) {
-        return;
+        options: [
+          { label: "1月", value: "1" },
+          { label: "2月", value: "2" },
+          { label: "3月", value: "3" },
+          { label: "4月", value: "4" },
+          { label: "5月", value: "5" },
+          { label: "6月", value: "6" },
+          { label: "7月", value: "7" },
+          { label: "8月", value: "8" },
+          { label: "9月", value: "9" },
+          { label: "10月", value: "10" },
+          { label: "11月", value: "11" },
+          { label: "12月", value: "12" }
+        ]
       }
 
-      localStorage.setItem(
-        "travelFitDeparture",
-        selectedDeparture
-      );
+    ];
 
-      alert(
-        "出発地を保存しました！\n次の工程でQ2を作ります。"
-      );
-    });
+
+    let currentQuestion = 0;
+
+    const answers = {};
+
+
+    const progressText =
+      document.getElementById("progressText");
+
+    const progressBar =
+      document.getElementById("progressBar");
+
+    const questionTitle =
+      document.getElementById("questionTitle");
+
+    const questionDescription =
+      document.getElementById("questionDescription");
+
+    const optionsContainer =
+      document.getElementById("options");
+
+    const nextButton =
+      document.getElementById("nextButton");
+
+    const backButton =
+      document.getElementById("backButton");
+
+
+    function showQuestion() {
+
+      const question =
+        questions[currentQuestion];
+
+
+      progressText.textContent =
+        "Q" + (currentQuestion + 1) + " / 15";
+
+
+      progressBar.style.width =
+        ((currentQuestion + 1) / 15 * 100) + "%";
+
+
+      questionTitle.textContent =
+        question.title;
+
+
+      questionDescription.textContent =
+        question.description;
+
+
+      optionsContainer.innerHTML = "";
+
+
+      question.options.forEach(option => {
+
+        const button =
+          document.createElement("button");
+
+        button.className = "option";
+
+        button.textContent =
+          option.label;
+
+
+        if (
+          answers[question.key] === option.value
+        ) {
+          button.classList.add("selected");
+        }
+
+
+        button.addEventListener(
+          "click",
+          function () {
+
+            answers[question.key] =
+              option.value;
+
+            showQuestion();
+
+          }
+        );
+
+
+        optionsContainer.appendChild(button);
+
+      });
+
+
+      if (answers[question.key]) {
+
+        nextButton.classList.add("active");
+
+      } else {
+
+        nextButton.classList.remove("active");
+
+      }
+
+
+      if (currentQuestion === 0) {
+
+        backButton.style.display = "none";
+
+      } else {
+
+        backButton.style.display = "block";
+
+      }
+
+    }
+
+
+    nextButton.addEventListener(
+      "click",
+      function () {
+
+        const question =
+          questions[currentQuestion];
+
+
+        if (!answers[question.key]) {
+          return;
+        }
+
+
+        localStorage.setItem(
+          "travelFitAnswers",
+          JSON.stringify(answers)
+        );
+
+
+        if (
+          currentQuestion <
+          questions.length - 1
+        ) {
+
+          currentQuestion++;
+
+          showQuestion();
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+
+        } else {
+
+          alert(
+            "Q2まで正常に回答できました！"
+          );
+
+        }
+
+      }
+    );
+
+
+    backButton.addEventListener(
+      "click",
+      function () {
+
+        if (currentQuestion > 0) {
+
+          currentQuestion--;
+
+          showQuestion();
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+
+        }
+
+      }
+    );
+
+
+    showQuestion();
+
   </script>
 
 </body>
