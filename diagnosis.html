@@ -639,7 +639,19 @@ transport: 4
   }
 ];
     
-  
+ function calculatePortugalScore() {
+  const userBudget = Number(answers.budget);
+
+  if (userBudget >= 350000) {
+    return 100;
+  }
+
+  if (userBudget >= 250000) {
+    return 80;
+  }
+
+  return 40;
+} 
 
 
 showQuestion();
