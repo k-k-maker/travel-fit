@@ -652,7 +652,21 @@ transport: 4
     over70: 100
   };
 
-  return budgetScores[answers.budget] ?? 40;
+  const daysScores = {
+    "4": 40,
+    "6": 80,
+    "8": 100,
+    "10": 100,
+    "14": 100,
+    "15plus": 100
+  };
+
+  const budgetScore = budgetScores[answers.budget] ?? 40;
+  const daysScore = daysScores[answers.days] ?? 40;
+
+  return Math.round(
+    (budgetScore + daysScore) / 2
+  );
 }
 
 
