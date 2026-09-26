@@ -642,18 +642,18 @@ transport: 4
 ];
     
  function calculatePortugalScore() {
-  const userBudget = Number(answers.budget);
+  const budgetScores = {
+    under15: 40,
+    "15to20": 40,
+    "20to30": 80,
+    "30to40": 100,
+    "40to50": 100,
+    "50to70": 100,
+    over70: 100
+  };
 
-  if (userBudget >= 350000) {
-    return 100;
-  }
-
-  if (userBudget >= 250000) {
-    return 80;
-  }
-
-  return 40;
-} 
+  return budgetScores[answers.budget] ?? 40;
+}
 
 
 showQuestion();
