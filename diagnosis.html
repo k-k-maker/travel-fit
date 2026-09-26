@@ -585,8 +585,8 @@
           const portugalScore = calculatePortugalScore();
 
 alert(
-  "ポルトガルの予算相性：" + portugalScore + "点" +
-  "\n日数データ：" + answers.days
+  "ポルトガルの予算相性：" + portugalScore + "点" 
+  
 );
 
         }
@@ -661,13 +661,19 @@ transport: 4
     "14": 100,
     "15plus": 100
   };
+   const climateScores = {
+  warm: 100,
+  cool: 70,
+  cold: 50,
+  any: 100
+};
 
   const budgetScore = budgetScores[answers.budget] ?? 40;
   const daysScore = daysScores[answers.days] ?? 40;
-
+const climateScore = climateScores[answers.climate] ?? 50;
   return Math.round(
-    (budgetScore + daysScore) / 2
-  );
+  (budgetScore + daysScore + climateScore) / 3
+);
 }
 
 
